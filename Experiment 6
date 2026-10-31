@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cstring>
+
+class String {
+private:
+    char* str;
+
+public:
+    // Parameterized constructor
+    String(const char* s = "") {
+        if (s == nullptr) {
+            str = new char[1];
+            str[0] = '\0';
+        } else {
+            str = new char[strlen(s) + 1];
+            strcpy(str, s);
+        }
+    }
+
+    // Copy Constructor (Deep Copy)
+    String(const String& source) {
+        str = new char[strlen(source.str) + 1];
+        strcpy(str, source.str);
+    }
+
+    // Destructor to prevent memory leaks
+    ~String() {
+        delete[] str;
+    }
+
+    // Method to display string contents
+    void display() const {
+        std::cout << str << std::endl;
+    }
+};
+
+int main() {
+    // Original object initialized using parameterized constructor
+    String original("Hello, C++ World!");
+
+    // Copying original object into copied object using copy constructor
+    String copied = original;
+
+    // Displaying both strings
+    std::cout << "Original String: ";
+    original.display();
+
+    std::cout << "Copied String:   ";
+    copied.display();
+
+    return 0;
+}
